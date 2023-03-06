@@ -35,10 +35,14 @@ function AppContext({ children }) {
           ...state,
           data: state.data.filter((item) => item.id !== action.id),
         };
+      case "clear":
+        return {
+          ...state,
+          data: [],
+        };
       default:
-        break;
+        return state;
     }
-    return state;
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
