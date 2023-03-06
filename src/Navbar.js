@@ -1,7 +1,8 @@
 import { useCartContext } from "./AppContext";
 
 function Navbar() {
-  const { cart } = useCartContext();
+  const { state } = useCartContext();
+  const cart = state.data;
   const amount = cart.reduce((acc, { amount }) => {
     return acc + amount;
   }, 0);

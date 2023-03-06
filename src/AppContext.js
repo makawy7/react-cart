@@ -1,11 +1,18 @@
-import { createContext, useContext, useReducer } from "react";
-import { data } from "./data";
+import {
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+  useCallback,
+} from "react";
 
+const url = "https://course-api.com/react-useReducer-cart-project";
 const CartContext = createContext();
 
 function AppContext({ children }) {
   const initialState = {
-    data: data,
+    isLoading: true,
+    data: [],
   };
 
   const reducer = (state, action) => {
@@ -40,15 +47,31 @@ function AppContext({ children }) {
           ...state,
           data: [],
         };
+      case "fetching":
+        return {
+          ...state,
+          isLoading: false,
+          data: action.data,
+        };
       default:
         return state;
     }
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const loadData = useCallback(async () => {
+    console.log("fetching!!");
+    const response = await fetch(url);
+    const data = await response.json();
+    dispatch({ name: "fetching", data: data });
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   return (
-    <CartContext.Provider value={{ cart: state.data, dispatch }}>
+    <CartContext.Provider value={{ state, dispatch }}>
       {children}
     </CartContext.Provider>
   );

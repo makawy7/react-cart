@@ -2,7 +2,8 @@ import CartItem from "./CartItem";
 import { useCartContext } from "./AppContext";
 
 function CartContainer() {
-  const { cart, dispatch } = useCartContext();
+  const { state, dispatch } = useCartContext();
+  const cart = state.data;
   const totalPrice = cart.reduce((acc, { price, amount }) => {
     return acc + amount * price;
   }, 0);
@@ -22,7 +23,7 @@ function CartContainer() {
       </div>
       <footer>
         <hr />
-        <div class="cart-total">
+        <div className="cart-total">
           <h4>
             total <span>${totalPrice.toFixed(2)}</span>
           </h4>
