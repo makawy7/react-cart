@@ -8,7 +8,7 @@ function CartContainer() {
       {/* cart header */}
       <header>
         <h2>your bag</h2>
-        {cart.length == 0 && <h4 className="empty-cart">is currently empty</h4>}
+        {cart.length === 0 && <h4 className="empty-cart">is currently empty</h4>}
       </header>
       <div>
         {cart.map((c, idx) => (
