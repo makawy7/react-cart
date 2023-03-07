@@ -3,17 +3,17 @@ import { useCartContext } from "./AppContext";
 function CartItem({ id, title, price, img, amount }) {
   const { dispatch } = useCartContext();
   const incrementItem = () => {
-    dispatch({ name: "increment", id });
+    dispatch({ name: "ADD_MORE", payload: id });
   };
   const decrementItem = () => {
-    if (amount === 0) {
+    if (amount === 1) {
       removeItem();
     } else {
-      dispatch({ name: "decrement", id });
+      dispatch({ name: "DELETE_ONE", payload: id });
     }
   };
   const removeItem = () => {
-    dispatch({ name: "remove", id });
+    dispatch({ name: "REMOVE", payload: id });
   };
   return (
     <article className="cart-item">
